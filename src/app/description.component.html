@@ -28,7 +28,7 @@
 <h3 class="card-header text-center font-weight-bold py-4">Enter Your Rate</h3>
 <div class="card-body">
 <div id="table" class="table-editable">
-  <form [formGroup]="descriptionForm" [formGroup]="rateForm" (ngSubmit)="createNewRecord()">
+  <form [formGroup]="descriptionForm" (ngSubmit)="createNewRecord()">
  <table class="table table-striped text-center" style="margin:0 auto;" *ngIf="allDescriptions">
    <tr>
          <th class="text-center">Skill ID</th>
@@ -59,17 +59,33 @@
    <td>
       <span contenteditable="true" (keyup)="changeValue('rate', $event)" (blur)="updateList('rate', $event)">{{record.rating}}</span>
   </td-->
-<!-- below is using fromc-control but should be tag with edit and delete button on each row. not sure how to submit whole table at once for bulk update and not row by row-->
+<!-- below is using fromc-control but should be tag with edit and delete button on each row. not sure how to submit whole table at once for bulk update and not row by row>
    <td>
      <input formControlName="rate" type="numbr" class="form-control">
-   </td>
+   </td-->
 
-     <label *ngIf="rateForm.get('rate').invalid && processValidation" [ngClass] = "'error'"> Rating is required. </label>
+   <td><select size="1" id="rate" name="rate">
+                    <option value="0">
+                        0
+                    </option>
+                    <option value="1">
+                        1
+                    </option>
+                    <option value="2">
+                        2
+                    </option>
+                    <option value="3">
+                        3
+                    </option>
+                    <option value="4">
+                        4
+                    </option>
+                </select></td>
    </tr>
+   <br>
+  <button class="btn btn-info">Submit</button>
 
-   <tr><td colspan="2">
-     <button class="btn btn-info">Submit</button>
-     </td></tr>
+
 </table>
 </form>
 </div>

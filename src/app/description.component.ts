@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { DescriptionService } from './description.service';
 import { Description } from './description';
+import { DescriptionComponent } from './description.component';
 
 @Component({
    selector: 'app-description',
@@ -19,11 +20,6 @@ export class DescriptionComponent implements OnInit {
    processValidation = false;
    //Create form
    descriptionForm = new FormGroup({
-    // id: new FormControl('', Validators.required),
-    // period: new FormControl('', Validators.required)
-     //rating: new FormControl('', Validators.required)
-   });
-   rateForm = new FormGroup({
      rate: new FormControl('', Validators.required)
    });
 
@@ -35,11 +31,11 @@ export class DescriptionComponent implements OnInit {
 	   this.getAllDescriptions();
    }
    //Fetch all records
-
    getAllDescriptions() {
 		this.descriptionService.getAllDescriptions()
 		  .subscribe(
-                data => this.allDescriptions = data,
+                data => this.allDescriptions = data;
+                this.displayData= true;
 				errorCode =>  this.statusCode = errorCode);
 
    }
@@ -47,15 +43,19 @@ export class DescriptionComponent implements OnInit {
    //create new records
    createNewRecord() {
       this.preProcessConfigurations();
-      let rate = this.recordForm.value.rate;
+      let arr[];
+      for(leti=0;i< this.descriptionForm.data.length;i++){
+        arr.push(this.BuildFormDynamic(this.descriptionForm.data[i]))
+      }
+      //this.rateForm.setValue({ skill_id: descriptionForm.skill_id });
+      let rate = this.descriptionForm.value.rate;
       this.descriptionService.createRecord(rate)
       .subscribe(description => {
-        console.log(description,'poiuytre');
-					//this.descriptionForm.setValue({ id: description.skill_id });
-					this.processValidation = true;
-					this.requestProcessing = false;
-		        },
-		        errorCode =>  this.statusCode = errorCode);
+        console.log(description);
+        this.processValidation = true;
+        this.requestProcessing = false;
+		   },
+		   errorCode =>  this.statusCode = errorCode);
    }
 /*   //Load record by id to edit
    loadRecordToEdit(skillId: string) {
