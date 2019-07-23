@@ -41,15 +41,16 @@ export class DescriptionComponent implements OnInit {
    }
 
    //create new records
-   createNewRecord() {
+   createNewRecord(form: descriptionForm) {
+     console.log(form.value)
       this.preProcessConfigurations();
       let arr[];
-      for(leti=0;i< this.descriptionForm.data.length;i++){
-        arr.push(this.BuildFormDynamic(this.descriptionForm.data[i]))
+      for(let i=0; i< this.descriptionForm.length; i++){
+        arr.push(this.BuildFormDynamic(this.descriptionForm[i]))
       }
       //this.rateForm.setValue({ skill_id: descriptionForm.skill_id });
-      let rate = this.descriptionForm.value.rate;
-      this.descriptionService.createRecord(rate)
+      //let rate = this.descriptionForm.value.rate;
+      this.descriptionService.createRecord(arr.rate)
       .subscribe(description => {
         console.log(description);
         this.processValidation = true;
