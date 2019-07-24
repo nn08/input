@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { DescriptionService } from './description.service';
 import { Description } from './description';
-import { DescriptionComponent } from './description.component';
 
 @Component({
    selector: 'app-description',
@@ -20,6 +19,7 @@ export class DescriptionComponent implements OnInit {
    processValidation = false;
    //Create form
    descriptionForm = new FormGroup({
+     skill_id: new FormControl('', Validators.required),
      rate: new FormControl('', Validators.required)
    });
 
@@ -34,23 +34,22 @@ export class DescriptionComponent implements OnInit {
    getAllDescriptions() {
 		this.descriptionService.getAllDescriptions()
 		  .subscribe(
-                data => this.allDescriptions = data;
-                this.displayData= true;
-				errorCode =>  this.statusCode = errorCode);
+                data => this.allDescriptions = data,
+                errorCode =>  this.statusCode = errorCode);
 
    }
 
    //create new records
-   createNewRecord(form: descriptionForm) {
-     console.log(form.value)
+   createNewRecord() {
+     console.log(this.descriptionForm)
       this.preProcessConfigurations();
-      let arr[];
+      /*let arr=[];
       for(let i=0; i< this.descriptionForm.length; i++){
         arr.push(this.BuildFormDynamic(this.descriptionForm[i]))
       }
       //this.rateForm.setValue({ skill_id: descriptionForm.skill_id });
-      //let rate = this.descriptionForm.value.rate;
-      this.descriptionService.createRecord(arr.rate)
+      //let rate = this.descriptionForm.value.rate;*/
+      this.descriptionService.createRecord(this.descriptionForm.rate)
       .subscribe(description => {
         console.log(description);
         this.processValidation = true;

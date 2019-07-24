@@ -55,14 +55,6 @@
       <span contenteditable="false">{{description.skill_item}}</span>
   </td>
 
-<!-- this was using editable table, but not sure how to adjust the width and apply controls, need to do some reearch)>
-   <td>
-      <span contenteditable="true" (keyup)="changeValue('rate', $event)" (blur)="updateList('rate', $event)">{{record.rating}}</span>
-  </td-->
-<!-- below is using fromc-control but should be tag with edit and delete button on each row. not sure how to submit whole table at once for bulk update and not row by row>
-   <td>
-     <input formControlName="rate" type="numbr" class="form-control">
-   </td-->
 
    <td><select size="1" id="rate" name="rate">
                     <option value="0">
@@ -84,6 +76,15 @@
    </tr>
    <br>
   <button class="btn btn-info">Submit</button>
+
+  <!-- this was using editable table, but not sure how to adjust the width and apply controls, need to do some reearch)>
+     <td>
+        <span contenteditable="true" (keyup)="changeValue('rate', $event)" (blur)="updateList('rate', $event)">{{record.rating}}</span>
+    </td-->
+  <!-- below is using fromc-control but should be tag with edit and delete button on each row. not sure how to submit whole table at once for bulk update and not row by row>
+     <td>
+       <input formControlName="rate" type="numbr" class="form-control">
+     </td-->
 
 
 </table>
