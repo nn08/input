@@ -12,6 +12,7 @@ import { Description } from './description';
 export class DescriptionService {
     //URL for CRUD operations
 	descriptionUrl = "http://localhost:3000/skills_description";
+	recordUrl = "http://localhost:3000/record";
 	//Create constructor to get Http instance
 	constructor(private http:Http) {
 	}
@@ -27,7 +28,7 @@ export class DescriptionService {
     createRecord(rate: Description):Observable<Description[]> {
 	    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: cpHeaders });
-        return this.http.post(this.descriptionUrl+"/create-record", rate, options)
+        return this.http.post(this.recordUrl+"/create-record", rate, options)
                .map(success => success.status)
                .catch(this.handleError);
     }
