@@ -44,19 +44,18 @@ export class DescriptionComponent implements OnInit {
 
      //console.log(this.descriptionForm)
       this.preProcessConfigurations();
-      let arr=[];
+      //let arr=[];
       for(let i=0; i< this.allDescriptions.length; i++){
-        arr.push(this.allDescriptions[i].skill_id)
+        //arr.push(this.allDescriptions[i].skill_id)
+        this.descriptionService.createRecord(this.allDescriptions[i].skill_id, this.getRate(i))
+        .subscribe(description => {
+          console.log(description);
+          this.processValidation = true;
+          this.requestProcessing = false;
+  		   },
+  		   errorCode =>  this.statusCode = errorCode);
       }
-      //this.rateForm.setValue({ skill_id: descriptionForm.skill_id });
-      //let rate = this.descriptionForm.value.rate;*/
-      this.descriptionService.createRecord(this.arr.values(), this.getRate.values())
-      .subscribe(description => {
-        console.log(description);
-        this.processValidation = true;
-        this.requestProcessing = false;
-		   },
-		   errorCode =>  this.statusCode = errorCode);
+
    }
 
 
