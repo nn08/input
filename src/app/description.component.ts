@@ -41,15 +41,16 @@ export class DescriptionComponent implements OnInit {
 
    //create new records
    createNewRecord() {
-     console.log(this.descriptionForm)
+
+     //console.log(this.descriptionForm)
       this.preProcessConfigurations();
-      /*let arr=[];
-      for(let i=0; i< this.descriptionForm.length; i++){
-        arr.push(this.BuildFormDynamic(this.descriptionForm[i]))
+      let arr=[];
+      for(let i=0; i< this.allDescriptions.length; i++){
+        arr.push(this.allDescriptions[i].skill_id, this.getRate(i))
       }
       //this.rateForm.setValue({ skill_id: descriptionForm.skill_id });
       //let rate = this.descriptionForm.value.rate;*/
-      this.descriptionService.createRecord(this.descriptionForm.rate)
+      this.descriptionService.createRecord(this.allDescriptions.values())
       .subscribe(description => {
         console.log(description);
         this.processValidation = true;
@@ -57,6 +58,8 @@ export class DescriptionComponent implements OnInit {
 		   },
 		   errorCode =>  this.statusCode = errorCode);
    }
+	
+	
 /*   //Load record by id to edit
    loadRecordToEdit(skillId: string) {
       this.preProcessConfigurations();
