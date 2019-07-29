@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { Description } from './description';
-//import { Rate } from './description';
+
 
 
 @Injectable()
@@ -23,11 +23,12 @@ export class DescriptionService {
 		        .catch(this.handleError);
 
     }
+
 	//Create record
-    createRecord(rate: Description):Observable<Description[]> {
+    createRecord(id: string, rate: number):Observable<Description[]> {
 	    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: cpHeaders });
-        return this.http.post(this.Url+"/create-record", rate, options)
+        return this.http.post(this.descriptionUrl+"/create-record", id, rate, options)
                .map(success => success.status)
                .catch(this.handleError);
     }
