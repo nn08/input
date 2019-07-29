@@ -46,11 +46,11 @@ export class DescriptionComponent implements OnInit {
       this.preProcessConfigurations();
       let arr=[];
       for(let i=0; i< this.allDescriptions.length; i++){
-        arr.push(this.allDescriptions[i].skill_id, this.getRate(i))
+        arr.push(this.allDescriptions[i].skill_id)
       }
       //this.rateForm.setValue({ skill_id: descriptionForm.skill_id });
       //let rate = this.descriptionForm.value.rate;*/
-      this.descriptionService.createRecord(this.allDescriptions.values())
+      this.descriptionService.createRecord(this.arr.values(), this.getRate.values())
       .subscribe(description => {
         console.log(description);
         this.processValidation = true;
@@ -58,8 +58,11 @@ export class DescriptionComponent implements OnInit {
 		   },
 		   errorCode =>  this.statusCode = errorCode);
    }
-	
-	
+
+
+   getRate(i) {
+        return document.getElementsByTagName("tr")[i+1].getElementsByTagName("td")[5].getElementsByTagName("select")[0].value
+    }
 /*   //Load record by id to edit
    loadRecordToEdit(skillId: string) {
       this.preProcessConfigurations();
@@ -73,7 +76,6 @@ export class DescriptionComponent implements OnInit {
 		        },
 		        errorCode =>  this.statusCode = errorCode);
    }
-
    //CNN Load record by priod to edit
    loadRecordByPeriod(recordPeriod: string) {
       this.preProcessConfigurations();
@@ -83,7 +85,6 @@ export class DescriptionComponent implements OnInit {
           errorCode =>  this.statusCode = errorCode
    )
  }
-
  //Handle create and update record
  onRecordFormSubmit() {
   this.processValidation = true;
@@ -95,7 +96,6 @@ export class DescriptionComponent implements OnInit {
     let period = this.recordForm.value.period;
       this.loadRecordByPeriod(period);
  }
-
    //Delete record
    deleteRecord(recordId: string) {
       this.preProcessConfigurations();
