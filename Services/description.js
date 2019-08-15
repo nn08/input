@@ -26,8 +26,27 @@ let getDescription = (data, callback) => {
   })
 }
 
+/***API to get info list */
+let getEmployeeInfo = (data, callback) => {
+  async.auto({
+    info: (cb) => {
+      descriptionDAO.getEmployeeInfo({},(err, data) => {
+        if (err) {
+          console.log(data,'data testing----');
+          cb(null, {"errorCode": util.statusCode.INTERNAL_SERVER_ERROR,"statusMessage": util.statusMessage.SERVER_BUSY});
+          return;
+        }
+        cb(null, data);
+        return;
+      });
+    }
+  }, (err, response) => {
+    callback(response.info);
+  })
+}
+
     /**API to create the atricle*/
-    let createRecord = (data, callback) => {
+  /*  let createRecord = (data, callback) => {
        async.auto({
             record: (cb) => {
                var dataToSet = {
@@ -50,7 +69,32 @@ let getDescription = (data, callback) => {
        }, (err, response) => {
            callback(response.record);
        });
-    }
+    }*/
+
+    let createRecord = (data, callback) => {
+          async.auto({
+               record: (cb) => {
+                   dataToSet = [];
+                   for(let i = 0; i < data.length; i++) {
+                     data[i].unshift('123');
+                     data[i].unshift('2019Q3');
+                     data[i].push('');
+                     dataToSet.push(data[i]);
+                   }
+                  console.log(dataToSet);
+                  descriptionDAO.createRecord(dataToSet, (err, dbData) => {
+                      if (err) {
+                          cb(null, { "statusCode": util.statusCode.FOUR_ZERO_ONE, "statusMessage": util.statusMessage.SERVER_BUSY });
+                          return;
+                      }
+
+                      cb(null, { "statusCode": util.statusCode.OK, "statusMessage": util.statusMessage.DATA_UPDATED,"result":dataToSet });
+                  });
+              }
+          }, (err, response) => {
+              callback(response.record);
+          });
+       }
 
     /**API to update the record
     let updateRecord = (data,callback) => {
@@ -162,6 +206,7 @@ let getDescription = (data, callback) => {
 
 module.exports = {
   getDescription: getDescription,
+  getEmployeeInfo: getEmployeeInfo,
     createRecord : createRecord
     //updateRecord : updateRecord,
     //deleteRecord : deleteRecord,

@@ -12,9 +12,16 @@ router.get('/get-all-items', (req, res) => {
     });
 });
 
-/**Api to create record
+/**Api to get the info of employee */
+router.get('/get-all-employeeInfo', (req, res) => {
+  descriptionService.getEmployeeInfo(req.query, (data) => {
+    res.send(data);
+    });
+});
+
+//Api to create record
 router.post('/create-record', (req, res) => {
-    recordService.createRecord(req.body, (data) => {
+    descriptionService.createRecord(req.body, (data) => {
         res.send(data);
     });
 });
