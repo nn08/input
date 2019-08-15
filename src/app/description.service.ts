@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { Description } from './description';
-
+import { Employee } from './description';
 
 
 @Injectable()
@@ -24,14 +24,20 @@ export class DescriptionService {
 
     }
 
-	//Create record
-    createRecord(id: string, rate: number):Observable<Description[]> {
-	    let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: cpHeaders });
-        return this.http.post(this.descriptionUrl+"/create-record", id, rate, options)
-               .map(success => success.status)
-               .catch(this.handleError);
-    }
+		getAllEmployeeInfo(): Observable<Employee[]> {
+			return this.http.get(this.descriptionUrl+"/get-all-employeeInfo")
+				.map(this.extractData)
+					.catch(this.handleError);
+		}
+
+		createRecord(arr):Observable<Description[]> {
+	         let cpHeaders = new Headers({ 'Content-Type': 'application/json' });
+	         let options = new RequestOptions({ headers: cpHeaders });
+	         return this.http.post(this.descriptionUrl+"/create-record", arr, options)
+	             .map(success => success.status)
+	             .catch(this.handleError);
+	     }
+
 	//Fetch record by id
   /*  getRecordById(recordId: string): Observable<Record> {
 		let cpHeaders = new Headers({ 'Content-Type': 'application/json' });

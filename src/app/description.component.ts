@@ -3,6 +3,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { DescriptionService } from './description.service';
 import { Description } from './description';
+import { Employee } from './description';
+import { Rate } from './rate';
+import { RATES } from './rate_value';
+
 
 @Component({
    selector: 'app-description',
@@ -11,24 +15,37 @@ import { Description } from './description';
 })
 export class DescriptionComponent implements OnInit {
    //Component properties
-   allDescriptions: Description[];
+   //list of all skill info in the page, get from db
+   public allDescriptions: Description[];
+   employeeInfo: Employee[];
    statusCode: number;
    requestProcessing = false;
    recordIdToUpdate = null;
    resultToEdit = false;
    processValidation = false;
+   readioSelected:any;
    //Create form
    descriptionForm = new FormGroup({
      skill_id: new FormControl('', Validators.required),
      rate: new FormControl('', Validators.required)
    });
 
+   SelectedRate:number;
+   SelectedItem:string="";
+   rateList: Rate[] = RATES;
+
    //Create constructor to get service instance
    constructor(private descriptionService: DescriptionService) {
    }
+
+
    //Create ngOnInit() and load records
    ngOnInit(): void {
+     //debugger;
 	   this.getAllDescriptions();
+     this.getAllEmployeeInfo();
+     this.rateList = RATES;
+     //this.SelectedRate = "";
    }
    //Fetch all records
    getAllDescriptions() {
@@ -39,85 +56,63 @@ export class DescriptionComponent implements OnInit {
 
    }
 
+   getAllEmployeeInfo() {
+     this.descriptionService.getAllEmployeeInfo()
+     .subscribe(
+        data => {
+          this.employeeInfo = data;
+          console.log("data: ",this.employeeInfo);
+        },
+        errorCode => this.statusCode = errorCode);
+   }
+
+   trackByIndex(index, item) {
+     return index;
+   }
+
    //create new records
    createNewRecord() {
+    /* if (this.descriptionForm.valid) {
+           // simulate new model creation and send the new data to external service
+           this.newModel = {
+               value: this.descriptionForm.value.selectedRate,
+               name: this.descriptionForm.name.selectedRate
+           };
+       } else {
+           this.newModel = null;
+       }
+   }*/
 
-     //console.log(this.descriptionForm)
-      this.preProcessConfigurations();
-      //let arr=[];
-      for(let i=0; i< this.allDescriptions.length; i++){
-        //arr.push(this.allDescriptions[i].skill_id)
-        this.descriptionService.createRecord(this.allDescriptions[i].skill_id, this.getRate(i))
-        .subscribe(description => {
-          console.log(description);
-          this.processValidation = true;
-          this.requestProcessing = false;
-  		   },
-  		   errorCode =>  this.statusCode = errorCode);
+          console.log(this.allDescriptions);
+          //debugger;
+          this.preProcessConfigurations();
+          let arr=[];
+          for(let i=0; i< this.allDescriptions.length; i++){
+              let sub_arr = [];
+              sub_arr.push(this.allDescriptions[i].skill_id, this.allDescriptions[i].rate)
+              arr.push(sub_arr);
+          }
+
+          this.descriptionService.createRecord(arr)
+              .subscribe(description => {
+                      //console.log(arr);
+                      this.processValidation = true;
+                      this.requestProcessing = false;
+                  },
+                  errorCode =>  this.statusCode = errorCode);
       }
 
-   }
 
-
-   getRate(i) {
-        return document.getElementsByTagName("tr")[i+1].getElementsByTagName("td")[5].getElementsByTagName("select")[0].value
+    getSelectedRate(event: any){
+      var index=event.target.id.split("_")[0];
+      //console.log(this);
+      this.allDescriptions[index].rate=event.target.value;
+      //console.log(this.allDescriptions[index].skill_id,this.allDescriptions[index].rate);
     }
-/*   //Load record by id to edit
-   loadRecordToEdit(skillId: string) {
-      this.preProcessConfigurations();
-      this.recordService.getRecordById(skillId)
-	      .subscribe(record => {
-			console.log(record,'poiuytre');
-		            this.recordIdToUpdate = record.id;
-					this.recordForm.setValue({ period: record.period, rating: record.rating });
-					this.processValidation = true;
-					this.requestProcessing = false;
-		        },
-		        errorCode =>  this.statusCode = errorCode);
-   }
-   //CNN Load record by priod to edit
-   loadRecordByPeriod(recordPeriod: string) {
-      this.preProcessConfigurations();
-      this.resultToEdit = true;
-      this.recordService.getRecordByPeriod(recordPeriod).subscribe (
-          data => this.allRecords = data,
-          errorCode =>  this.statusCode = errorCode
-   )
- }
- //Handle create and update record
- onRecordFormSubmit() {
-  this.processValidation = true;
-  if (this.recordForm.invalid) {
-       return; //Validation failed, exit from method.
-  }
-  //Form is valid, now perform create or update
-    this.preProcessConfigurations();
-    let period = this.recordForm.value.period;
-      this.loadRecordByPeriod(period);
- }
-   //Delete record
-   deleteRecord(recordId: string) {
-      this.preProcessConfigurations();
-      this.recordService.deleteRecordById(recordId)
-	      .subscribe(successCode => {
-		            //this.statusCode = successCode;
-					//Expecting success code 204 from server
-					this.statusCode = 204;
-				    this.getAllRecords();
-				    this.backToCreateRecord();
-			    },
-		        errorCode => this.statusCode = errorCode);
-   }
-   */
    //Perform preliminary processing configurations
    preProcessConfigurations() {
       this.statusCode = null;
-	  this.requestProcessing = true;
+	    this.requestProcessing = true;
    }
-   //Go back from update to create
-  /* backToCreateRecord() {
-      this.recordIdToUpdate = null;
-      this.descriptionForm.reset();
-	  this.processValidation = false;
-  }*/
+
 }

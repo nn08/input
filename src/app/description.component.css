@@ -6,16 +6,50 @@ h1 {
 h3 {
 	color: gray;
 }
+
 table {
     border-collapse: collapse;
+    border-spacing:0 0px;
+    margin-bottom: 0rem;
+    background-color: white;
+}
+table[_ngcontent-c0], th[_ngcontent-c0], td[_ngcontent-c0] {
+  border: 1px solid transparent;
+
+}
+th {
+  background-color: #c4c4c4;
+
+}
+td {
+  white-space:pre;
 }
 table, th, td {
     border: 1px solid black;
-	font-size:17px;
+    font-size:15px;
+    margin:0px 100px 0px 100px;
+}
+.borderless td {
+    padding: 3px;
+    table-layout: fixed;
+    border: none;
+    line-height: 19px;
+    font-size:13px;
+}
+.borderless th {
+  padding: 3px;
+  table-layout: fixed;
+  border: none;
+  line-height: 23px;
+  font-size:15px;
+  margin-right: 16px;
+}
+.blank_row
+{
+    height: 3px !important; /* overwrites any other rules */
+    background-color: #FFFFFF;
 }
 input {
-    width: 225px;
-    margin: 8px 0;
 	background-color: #dfdfdf;
 	font-size:17px;
 }
@@ -30,4 +64,55 @@ button {
 .success{
     color: green;
     font-size: 20px;
+}
+.sticky-container {
+  background: white;
+  color: black;
+}
+
+.sticky-container .is-sticky {
+  color: black;
+  width: 100%;
+  height: 100px;
+}
+.mat-expansion-panel-header {
+  height: 30px !important;
+  background-color: #c4c4c4;
+  font-weight: 800;
+}
+.pgheader {
+  text-align:center;
+  font-size: 23px;
+  position: absolute;
+  z-index: 4;
+  width: 100%;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #767676;
+}
+.pgheader-bg {
+  position: relative;
+  width:100%;
+  height:20%;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgba(0,0,0,0);
+}
+li {
+  display: inline;
+  font-size: 15px;
+  float: center;
+}
+li a {
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #f2f6f9;
 }

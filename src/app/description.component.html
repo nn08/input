@@ -1,94 +1,176 @@
-<div class="text-lg-center">
-  <p>
-      <a href="https://www.fitforbanking.com/murex/modules.php" target="_top">Murex Modules </a>
-  </p>
+<div class="pgheader">
 
-</div>
+  <div class="navbar">
+    <!--logo-->
+    <img src="assets/images/murexlogo.png" align="left" alt="Murex Logo"/>
+    <!--menu-->
+    <ul>
+      <li><a herf="/checkHistory">History Record</a></li>
+      <li><a herf="/selfInput">Current Period Entry</a></li>
+    </ul><!--end of menu-->
+    </div><!--end of navbar-->
 
-<h1 class="text-center">SKILLSET</h1>
+<br><br><br>
+  <div>THE SKILLS FRAMEWORK FOR CONSULTANT:
+<label *ngFor="let info of employeeInfo">{{info.eName}}</label>
+</div></div>
 
-<ng-template #create>
-   <h3 class="text-center"> Rating </h3>
-</ng-template>
-<!--div>
-  <form [formGroup]="recordForm" (ngSubmit)="onRecordFormSubmit()">
-   <table class="table-striped" style="margin:0 auto;">
-     <tr><th>Enter Period To Check</th><td><input formControlName="period"></td>
- 	       <label *ngIf="recordForm.get('period').invalid && processValidation" [ngClass] = "'error'"> period is required. </label>
-    	</tr>
-     <tr><td colspan="2">
-       <button class="btn btn-default">Check</button>
-       <button class="btn btn-default" *ngIf="resultToEdit" type="button" (click)="loadRecordToEdit(record.id)">Edit</button>
- 	     </td></tr>
-   </table>
-  </form>
-</div-->
-<br>
-<div class="card">
-<h3 class="card-header text-center font-weight-bold py-4">Enter Your Rate</h3>
-<div class="card-body">
-<div id="table" class="table-editable">
+<div class="pgheader-bg"><img src="assets/images/pgheader-bg.jpg" width="100%" alt="Background of Skills Framework Header"/></div>
+
+
+  <table mat-table class='table borderless' *ngFor="let info of employeeInfo">
+    <tr><th colspan="10" class="text-left">Employee Information</th></tr>
+    <tr>
+      <td colspan="3"> </td>
+      <td class="text-left">Name</td>
+      <td class="text-left">{{info.eName}}</td>
+    </tr>
+    <tr>
+      <td colspan="3"> </td>
+      <td class="text-left">AM</td>
+      <td class="text-left">{{info.amName}}</td>
+    </tr>
+    <tr>
+      <td colspan="3"> </td>
+      <td class="text-left">Department</td>
+      <td class="text-left">{{info.department}}</td>
+    </tr>
+    <tr>
+      <td colspan="3"> </td>
+      <td class="text-left">Office</td>
+      <td class="text-left">{{info.office}}</td>
+    </tr>
+  </table>
+
+  <table mat-table class='table borderless'>
+    <tr><th colspan="10" class="text-left">Content Information</th></tr>
+    <tr>
+      <td colspan="3"> </td>
+      <td class="text-left">Period</td>
+      <td class="text-left">currentPeriod}}</td>
+    </tr>
+    <tr>
+      <td colspan="3"> </td>
+      <td class="text-left">Due Date</td>
+      <td class="text-left">dueDate}}</td>
+    </tr>
+  </table>
+
+
+    <div class="sticky-container"  style="margin:0px 100px 0px 100px;">
+      <div ng-sticky [offSet]="0" [addClass]="'is-sticky'">
+        <span>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Instructions</mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-action-row>
+              <table mat-table class='table borderless'>
+                <tr>
+                  <td colspan="10">SkillSet Level Definition</td>
+                </tr>
+                <tr>
+                  <td> </td>
+                  <td class="text-left">Level 0: Huh?</td>
+                </tr>
+                <tr>
+                  <td colspan="2"> </td>
+                  <td colspan="8"class="text-left">I never heard of the topic and have no idea what it is.</td>
+                </tr>
+                <tr>
+                  <td> </td>
+                  <td colspan="3" class="text-left">Level 1: New, Awareness (What)</td>
+                </tr>
+                <tr>
+                  <td colspan="2"> </td>
+                  <td colspan="8"class="text-left">I am new to this topic. I have just attended a training or I have completed the self-study.
+I am able to recognize, remember and recall the terminologies or concepts but not necessarily be able to use or explain.
+Or it is merely data/material that is available from internet or knowledge bases.
+Able to explore the topic with reference to document or with guidance from Seniors</td>
+                </tr>
+                <tr>
+                  <td> </td>
+                  <td colspan="3" class="text-left">Level 2: Comprehension and Application (How)</td>
+                </tr>
+                <tr>
+                  <td colspan="2"> </td>
+                  <td colspan="8"class="text-left">I have a good grasp of the topic. I am able to explain related concepts and ideas. I can connect and apply this knowledge in a practical setting.
+I am able to associate the data/material with context/purpose and make it informative.
+Able to handle most support cases & technical build with design specifications. Able to deliver standard internal & client training</td>
+                </tr>
+                <tr>
+                  <td> </td>
+                  <td colspan="3" class="text-left">Level 3: Analysis (Why)</td>
+                </tr>
+                <tr>
+                  <td colspan="2"> </td>
+                  <td colspan="8"class="text-left">I've seen decent application / practices / approaches. I am able to provide an appraisal of the related concept or technique.
+I can make comparison with other concepts and see similarities and differences. I can well explain the link between business and the setup.
+I am able to understand what the information actually means and decides what's important.
+Aware of most of the traps and able to generalize best practices or advise the best approaches or application </td>
+                </tr>
+                <tr>
+                  <td> </td>
+                  <td colspan="3" class="text-left">Level 4: Synthesis (Wow)</td>
+                </tr>
+                <tr>
+                  <td colspan="2"> </td>
+                  <td colspan="8"class="text-left">I am able to organize and clearly present relevant information.
+I am prepared to lead a discussion of it.
+I am able to judge, defend or critique of choices or decisions by self or others.
+I am able to judge, decide what needs to be done with the knowledge to achieve certain goals, with experience and analysis.
+Able to construct, design and create own solutions to problems</td>
+                </tr>
+              </table>
+            </mat-action-row>
+          </mat-expansion-panel>
+        </span>
+      </div>
+    </div>
+
+
+        <div class="sticky-container">
+          <div ng-sticky [offSet]="33" [addClass]="'is-sticky'">
+            <span>
+              <table mat-table class='table borderless'>
+                <tr align="left">
+                      <th width="100px">Category</th>
+                      <th width="100px">Family</th>
+                      <th width="100px">Set</th>
+                      <th width="100px">Skill Item</th>
+                      <th width="100px">Description</th>
+                      <th colspan="5">Rate</th>
+                </tr>
+                <tr>
+                  <td colspan="5" class="text-center"> </td>
+                  <td class="text-center">0</td>
+                  <td class="text-center">1</td>
+                  <td class="text-center">2</td>
+                  <td class="text-center">3</td>
+                  <td class="text-center">4</td>
+                </tr></table>
+            </span>
+          </div>
+        </div>
+
+<div id="table" class='table borderless'>
   <form [formGroup]="descriptionForm" (ngSubmit)="createNewRecord()">
- <table class="table table-striped text-center" style="margin:0 auto;" *ngIf="allDescriptions">
-   <tr>
-         <th class="text-center">Skill ID</th>
-         <th class="text-center">Category</th>
-         <th class="text-center">Family</th>
-         <th class="text-center">Set</th>
-         <th class="text-center">Skill Item</th>
-         <th class="text-center">Rate</th>
-   </tr>
-   <tr *ngFor="let description of allDescriptions" >
-     <td>
-        <span contenteditable="false">{{description.skill_id}}</span>
-    </td>
-    <td>
-       <span contenteditable="false">{{description.category}}</span>
-   </td>
-   <td>
-      <span contenteditable="false">{{description.family}}</span>
-  </td>
-  <td>
-     <span contenteditable="false">{{description.set}}</span>
- </td>
-   <td>
-      <span contenteditable="false">{{description.skill_item}}</span>
-  </td>
+ <table class="table table-striped text-center"  *ngIf="allDescriptions">
 
+   <tr align="left" *ngFor="let description of allDescriptions; let index = index; trackBy: trackByIndex;">
+     <!--td width="100">{{description.skill_id}}</td-->
+     <td width="100px">{{description.category}}</td>
+     <td width="100px">{{description.family}}</td>
+     <td width="100px">{{description.set}}</td>
+     <td width="100px">{{description.skill_item}}</td>
+     <td width="100px">{{description.description}}</td>
+     <td *ngFor="let rate of rateList" >
+      <input type="radio" id="{{index}}_{{description.skill_id}}" name="{{description.skill_id}}" value="{{rate.value}}" (change)="getSelectedRate($event)" />
+     </td>
+    </tr>
+  </table>
 
-   <td><select size="1" id="rate" name="rate">
-                    <option value="0">
-                        0
-                    </option>
-                    <option value="1">
-                        1
-                    </option>
-                    <option value="2">
-                        2
-                    </option>
-                    <option value="3">
-                        3
-                    </option>
-                    <option value="4">
-                        4
-                    </option>
-                </select></td>
-   </tr>
-   <br>
-  <button class="btn btn-info">Submit</button>
-
-  <!-- this was using editable table, but not sure how to adjust the width and apply controls, need to do some reearch)>
-     <td>
-        <span contenteditable="true" (keyup)="changeValue('rate', $event)" (blur)="updateList('rate', $event)">{{record.rating}}</span>
-    </td-->
-  <!-- below is using fromc-control but should be tag with edit and delete button on each row. not sure how to submit whole table at once for bulk update and not row by row>
-     <td>
-       <input formControlName="rate" type="numbr" class="form-control">
-     </td-->
-
-
-</table>
+<br>
+<button class="btn btn-info" style="float: right;">Save & Submit</button>
 </form>
-</div>
-</div>
 </div>
